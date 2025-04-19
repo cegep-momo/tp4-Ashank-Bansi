@@ -6,6 +6,7 @@ class Modele:
         self.fichier = fichier
         
     def enregistrer_donnees(self, date, valeurs):
+        
         nouvelles_donnees = {
             "date": date.strftime('%Y-%m-%d %H:%M:%S'),
             "valeurs": valeurs       
