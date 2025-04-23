@@ -1,7 +1,6 @@
 from gpiozero import DistanceSensor, Button
 from ADCDevice import *
 import RPi.GPIO as GPIO
-import math
 from time import sleep
 
 class Platine:
@@ -28,21 +27,12 @@ class Platine:
             
     def lecture_distance(self):
         return round(self.capteur.distance * 100, 1)
-    
-    def lecture_volt(self):
-        if self.adc_detecte:
-            valeur = self.adc_analogRead(0)
-            tension = valeur / 255.0 * 3.3
-            return round(tension, 2)
-        else:
-            return 0.0
-
         
     def boucle(self):
         while True:
             distance = self.lecture_distance()
             temperature = self.lecture_volt()
-            print("Distance : %.1f cm, Tension : %.2f V" % (distance, temperature))
+            print("Distance : %.1f cm," % distance)
             sleep(1)
     
     def fin(self):
