@@ -1,5 +1,4 @@
 from gpiozero import DistanceSensor, Button
-from ADCDevice import *
 import RPi.GPIO as GPIO
 from time import sleep
 
@@ -11,31 +10,10 @@ class Platine:
             }
         
         self.capteur = DistanceSensor(echo=12, trigger=17, max_distance=1.0)
-        
-        self.adc = ADCDevice()
-        self.adc_detecte = False
-        self.initialisation()
-        
-    def initialisation(self):
-        if self.adc.detectI2C(0x48): 
-            self.adc = ADS7830()
-            self.adc_detecte = True
-            print("Module ADC détecté.")
-        else:
-            print("Erreur : Aucun moduke ADC trouvée. Fin du programme")
-            exit(-1)
             
     def lecture_distance(self):
         return round(self.capteur.distance * 100, 1)
         
-    def boucle(self):
-        while True:
-            distance = self.lecture_distance()
-            temperature = self.lecture_volt()
-            print("Distance : %.1f cm," % distance)
-            sleep(1)
     
     def fin(self):
-        if self.adc_detecte:
-            self.adc.close()
         GPIO.cleanup()

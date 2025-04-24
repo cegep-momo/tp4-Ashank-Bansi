@@ -1,11 +1,18 @@
-from gpiozero import DistanceSensor
+from gpiozero import Button
 from time import sleep
 
-capteur = DistanceSensor(echo = 12,
-                        trigger= 17,
-                        max_distance= 3)
+# Boutons connectés aux GPIO 19 et 13
+bouton1 = Button(19)
+bouton2 = Button(13)
 
-while True :
-    cm = capteur.distance * 100
-    print("Distance: " +str(cm) + " cm")
-    sleep(1)
+print("Test des boutons... (Appuie sur les boutons)")
+
+try:
+    while True:
+        if bouton1.is_pressed:
+            print("Bouton 1 pressé ✅")
+        if bouton2.is_pressed:
+            print("Bouton 2 pressé ✅")
+        sleep(0.1)
+except KeyboardInterrupt:
+    print("\nTest terminé.")
